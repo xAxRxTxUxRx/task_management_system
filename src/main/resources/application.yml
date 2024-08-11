@@ -3,9 +3,9 @@ spring:
     name: TaskManagementSystem
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/tasks
-    username: artur
-    password: karat440
+    url: jdbc:postgresql://db:5432/tasks
+    username: postgres
+    password: postgres
   jpa:
     hibernate:
       ddl-auto: update
