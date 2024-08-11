@@ -8,6 +8,16 @@
 `git checkout prod`
 
 ## 2. Получение исполняемого файла и документации.
+Проверьте есть ли у вас на устройстве mvn командой:
+
+`mvn -version`
+
+Если нет то нужно его установить для сборки проекта:
+- Установка для Linux: sudo apt install mvn
+- Установка для Widnows: https://phoenixnap.com/kb/install-maven-windows
+
+С установленным mvn на устройстве: 
+
 `mvn clean install -DskipTests`
 
 Появятся новая папка.
