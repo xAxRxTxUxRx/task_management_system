@@ -3,6 +3,8 @@
 ## 1. Получение исходного кода проекта.
 `git clone https://github.com/xAxRxTxUxRx/task_management_system`
 
+`cd task_management_system`
+
 `git checkout prod`
 
 ## 2. Получение исполняемого файла и документации.
