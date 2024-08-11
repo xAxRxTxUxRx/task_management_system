@@ -35,7 +35,7 @@
 
 `docker build -t artur0khram/task_management_system:latest .`
 
-Если возникают ошибки:
+- Если на этом или предыдущем этапе возникили ошибки:
 
 Зарегистрируйтесь на Docker hub.
 
