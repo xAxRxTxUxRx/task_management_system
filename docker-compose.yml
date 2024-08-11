@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: artur0khram/task_management_system:latest
     container_name: backend_container
     ports:
       - "8080:8080"
