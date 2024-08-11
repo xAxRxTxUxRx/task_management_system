@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: TaskManagementSystem
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/tasks
+    username: artur
+    password: karat440
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: orangePlumbingShop@gmail.com
+    password: iabo gfdh ksyc nmos
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+artur:
+  openapi:
+    devUrl: http://localhost:8080
+    prodUrl: http://localhost:8080
+  secret-key: Y1+PdP82fDOYOK5yizjwQmDpwQuSzyAilHOOar9Rp5FnAhvicH91zJ6g4I9vXN6E7H9zi8pclTL3zAuj3v55X4xMyawbybUq/82YQn5AgHeFmoIYm+2vLfirAtUCQLEwUv514XEbUs15c3LVC1hSi1cN+CjJm/LupxZDP6QKmsOw6Tjiv73M4BiPkSZkfc9tabcIEXgAaw56o8LCEmCGCUgHgSU9bijlcR9cFgPsYVrqvHqMPb8x8onHe6FJ+nfsD4ccg+7ik8TyhJ2f7kvYWnJrzaLShCgsNIJscOD6lz5jlIPslfdAhlML78T4lv5oEhb0Dssbs/0MLK1ew8JRiuMWtC0aBpNpdHp/KCGLTmInT5F7zGQdi4CRjCfuWiSHji9E0VA+jnCfHnk3p8+KqpURD+lM28SwGY6OUJMMWa0CKXS9LrF7uXyic72xu9bQrEGhzeGN5yiTgMCNKps9P2GOEkiZ51+SEaqkR86w8nI4tzKhPauqS6l9RFC4jCdIOWGBMLHxottkA3SmlCbI3fIw1AaH+JFU4kSN51rknKJV5QG+f60XwidYBywi2tOFqruRnxJg/+vVq/n5WM2p/ocHkhxj+1Y5Fy92qYap8WdZGWpY7bECrnHD0+PxuyuT/R9DNc/aNUENJDatssPyY+zxRlRHVUGEzSamTGqRHrzRkYa4EIEVSOXbIRsBOPrM
