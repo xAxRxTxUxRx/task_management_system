@@ -8,6 +8,8 @@
 `git checkout prod`
 
 ## 2. Получение исполняемого файла и документации.
+*Если на этом этапе возникают ошибки его можно пропустить
+
 Проверьте есть ли у вас на устройстве mvn командой:
 
 `mvn -version`
@@ -29,10 +31,25 @@
 
 В ./docs находится документация сгенериронная Javadoc (index.html)
 
-## 3. Запуск docker compose.
+## 3 Получение docker image.
+Для этого этапа должен быть установлен Docker.
+- Если предыдущий этап прошел успешно:
+
+`docker build -t artur0khram/task_management_system:latest .`
+
+Если возникают ошибки:
+
+Зарегистрируйтесь на Docker hub.
+
+Войдите в аккаунт на устройстве:
+`docker login`
+
+`docker pull artur0khram/task_management_system:latest`
+
+## 4. Запуск docker compose.
 `docker-compose up --build`
 
-## 4. Приложение запущено по адресу: http://localhost:8080
+## 5. Приложение запущено по адресу: http://localhost:8080
 
 ## Документация апи: http://localhost:8080/swagger-ui/index.html#/
 
