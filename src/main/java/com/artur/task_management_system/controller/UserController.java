@@ -55,7 +55,7 @@ public class UserController {
                             content = @Content(schema = @Schema(implementation = UserViewDTO.class))),
                     @ApiResponse(responseCode = "400", content = @Content(schema = @Schema(implementation = Void.class)),
                             description = "Bad request. (Pagination can't be null/Wrong sorting direction value)"),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    @ApiResponse(responseCode = "403", description = "Unauthorized",
                             content = @Content(schema = @Schema(implementation = Void.class)))
             }
     )
@@ -93,7 +93,7 @@ public class UserController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "Successful retrieval of user details",
                             content = @Content(schema = @Schema(implementation = UserViewDTO.class))),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    @ApiResponse(responseCode = "403", description = "Unauthorized",
                             content = @Content(schema = @Schema(implementation = Void.class))),
                     @ApiResponse(responseCode = "404", description = "User not found",
                             content = @Content(schema = @Schema(implementation = Void.class)))
@@ -117,7 +117,7 @@ public class UserController {
             description = "Deletes the currently logged-in user.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "User deleted successfully"),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized - Invalid credentials")
+                    @ApiResponse(responseCode = "403", description = "Unauthorized")
             }
     )
     public void deleteLoggedInUser(){
@@ -137,7 +137,7 @@ public class UserController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "User updated successfully"),
                     @ApiResponse(responseCode = "400", description = "Bad request"),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized")
+                    @ApiResponse(responseCode = "403", description = "Unauthorized")
             }
     )
     public void updateLoggedInUser(@Valid @RequestBody UserCreationDTO userDTO){

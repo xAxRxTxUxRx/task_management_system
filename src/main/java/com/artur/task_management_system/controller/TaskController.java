@@ -57,7 +57,7 @@ public class TaskController {
                             content = @Content(schema = @Schema(implementation = TaskViewDTO.class))),
                     @ApiResponse(responseCode = "400", content = @Content(schema = @Schema(implementation = Void.class)),
                             description = "Bad request. (Pagination can't be null/Wrong sorting direction value)"),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    @ApiResponse(responseCode = "403", description = "Unauthorized",
                             content = @Content(schema = @Schema(implementation = Void.class)))
             }
     )
@@ -100,7 +100,7 @@ public class TaskController {
                             content = @Content(schema = @Schema(implementation = TaskViewDTO.class))),
                     @ApiResponse(responseCode = "400", content = @Content(schema = @Schema(implementation = Void.class)),
                             description = "Bad request. (Pagination can't be null/Wrong sorting direction value)"),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    @ApiResponse(responseCode = "403", description = "Unauthorized",
                             content = @Content(schema = @Schema(implementation = Void.class)))
             }
     )
@@ -143,7 +143,7 @@ public class TaskController {
                             content = @Content(schema = @Schema(implementation = TaskViewDTO.class))),
                     @ApiResponse(responseCode = "400", content = @Content(schema = @Schema(implementation = Void.class)),
                             description = "Bad request. (Pagination can't be null/Wrong sorting direction value)"),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    @ApiResponse(responseCode = "403", description = "Unauthorized",
                             content = @Content(schema = @Schema(implementation = Void.class)))
             }
     )
@@ -187,7 +187,7 @@ public class TaskController {
                             content = @Content(schema = @Schema(implementation = TaskViewDTO.class))),
                     @ApiResponse(responseCode = "400", content = @Content(schema = @Schema(implementation = Void.class)),
                             description = "Bad request. (Pagination can't be null/Wrong sorting direction value)"),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    @ApiResponse(responseCode = "403", description = "Unauthorized",
                             content = @Content(schema = @Schema(implementation = Void.class)))
             }
     )
@@ -235,7 +235,7 @@ public class TaskController {
                             content = @Content(schema = @Schema(implementation = TaskViewDTO.class))),
                     @ApiResponse(responseCode = "400", content = @Content(schema = @Schema(implementation = Void.class)),
                             description = "Bad request. (Pagination can't be null/Wrong sorting direction value)"),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    @ApiResponse(responseCode = "403", description = "Unauthorized",
                             content = @Content(schema = @Schema(implementation = Void.class)))
             }
     )
@@ -276,7 +276,7 @@ public class TaskController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "Successful retrieval of task",
                             content = @Content(schema = @Schema(implementation = TaskViewDTO.class))),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    @ApiResponse(responseCode = "403", description = "Unauthorized",
                             content = @Content(schema = @Schema(implementation = Void.class))),
                     @ApiResponse(responseCode = "404", description = "Task not found",
                             content = @Content(schema = @Schema(implementation = Void.class)))
@@ -302,7 +302,7 @@ public class TaskController {
             description = "Deletes a task based on the provided taskId",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Successful deletion of task"),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized"),
+                    @ApiResponse(responseCode = "403", description = "Unauthorized"),
                     @ApiResponse(responseCode = "404", description = "Task not found")
             }
     )
@@ -330,7 +330,7 @@ public class TaskController {
                             content = @Content(schema = @Schema(implementation = Long.class))),
                     @ApiResponse(responseCode = "400", description = "Bad request",
                             content = @Content(schema = @Schema(implementation = Void.class))),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                    @ApiResponse(responseCode = "403", description = "Unauthorized",
                             content = @Content(schema = @Schema(implementation = Void.class)))
             }
     )
@@ -352,7 +352,7 @@ public class TaskController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "Successful update of task"),
                     @ApiResponse(responseCode = "400", description = "Bad request"),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized"),
+                    @ApiResponse(responseCode = "403", description = "Unauthorized"),
                     @ApiResponse(responseCode = "404", description = "Task not found")
             }
     )
@@ -377,7 +377,7 @@ public class TaskController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "Successful update of status of task"),
                     @ApiResponse(responseCode = "400", description = "Bad request"),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized"),
+                    @ApiResponse(responseCode = "403", description = "Unauthorized"),
                     @ApiResponse(responseCode = "404", description = "Task not found")
             }
     )
@@ -406,7 +406,7 @@ public class TaskController {
             description = "Assigns task by taskId to performer by performerId",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Successful update of status of task"),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized"),
+                    @ApiResponse(responseCode = "403", description = "Unauthorized"),
                     @ApiResponse(responseCode = "404", description = "Task/User not found")
             }
     )
@@ -432,7 +432,7 @@ public class TaskController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "Successful update of status of task"),
                     @ApiResponse(responseCode = "400", description = "Bad request"),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized"),
+                    @ApiResponse(responseCode = "403", description = "Unauthorized"),
                     @ApiResponse(responseCode = "404", description = "Task not found")
             }
     )
