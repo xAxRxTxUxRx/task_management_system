@@ -90,6 +90,19 @@ class TaskServiceTest {
     }
 
     @Test
+    void testGetAuthoredTasks() {
+        PageRequest pageable = PageRequest.of(0, 10, Sort.Direction.ASC, "field");
+        Page<Task> tasks = new PageImpl<>(Collections.emptyList());
+        User loggedInUser = User.builder().id(1L).build();
+
+        when(taskRepository.findAllByAuthorId(loggedInUser.getId(), pageable)).thenReturn(tasks);
+        Page<Task> result = taskService.getAuthoredTasks(0, 10, "field", "Asc");
+
+        assertEquals(tasks, result);
+        verify(taskRepository, times(1)).findAllByAuthorId(loggedInUser.getId(), pageable);
+    }
+
+    @Test
     void testDeleteTaskById() {
         Task task = new Task();
         task.setId(1L);
