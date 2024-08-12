@@ -96,9 +96,11 @@ class TaskServiceTest {
     void testGetAuthoredTasks() {
         PageRequest pageable = PageRequest.of(0, 10, Sort.Direction.ASC, "field");
         Page<Task> tasks = new PageImpl<>(Collections.emptyList());
-        User loggedInUser = User.builder().id(1L).build();
+        User loggedInUser = User.builder().id(1L).email("test@gmail.com").build();
 
         when(taskRepository.findAllByAuthorId(loggedInUser.getId(), pageable)).thenReturn(tasks);
+        when(authentication.getName()).thenReturn(loggedInUser.getEmail());
+        when(userService.getUserByEmail(loggedInUser.getEmail())).thenReturn(loggedInUser);
         Page<Task> result = taskService.getAuthoredTasks(0, 10, "field", "Asc");
 
         assertEquals(tasks, result);
