@@ -6,8 +6,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -63,6 +66,15 @@ public class Task {
     @JoinColumn(name = "task_id")
     @JsonManagedReference
     private Set<TaskComment> comments = new HashSet<>();
+
+    @CreatedDate
+    private Date createdAt;
+
+    @LastModifiedDate
+    private Date updatedAt;
+
+    @Version
+    private Integer version;
 
     public void addPerformer(User performer){
         performers.add(performer);
