@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -33,6 +36,7 @@ public class ConfirmationToken {
     private String token;
 
     @Column(nullable = false)
+    @CreatedDate
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
@@ -43,6 +47,12 @@ public class ConfirmationToken {
     @ManyToOne(cascade = CascadeType.DETACH, optional = false)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @LastModifiedDate
+    private Date updatedAt;
+
+    @Version
+    private Integer version;
 
     @Override
     public boolean equals(Object o) {
