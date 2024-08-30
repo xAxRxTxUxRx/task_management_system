@@ -2,6 +2,8 @@ package com.artur.task_management_system.controller;
 
 import com.artur.task_management_system.dto.TaskCommentCreationDTO;
 import com.artur.task_management_system.dto.TaskCreationDTO;
+import com.artur.task_management_system.dto.UserViewDTO;
+import com.artur.task_management_system.model.PageResponse;
 import com.artur.task_management_system.model.Task;
 import com.artur.task_management_system.model.TaskComment;
 import com.artur.task_management_system.model.attributes.TaskStatus;
@@ -46,14 +48,15 @@ public class TaskController {
      * @param pageSize размер страницы для пагинации
      * @param field поле для сортировки
      * @param directionStr направление сортировки
-     * @return список задач
+     * @return список задач с метаинформацией об офсетах
      */
     @GetMapping
     @Operation(
             summary = "Get all tasks",
             description = "Retrieve a paginated/sorted list of all tasks",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Successful retrieval of task list",
+                    @ApiResponse(responseCode = "200", description = "Successful retrieval of task list" +
+                            "with metadata about offsets",
                             content = @Content(schema = @Schema(implementation = TaskViewDTO.class))),
                     @ApiResponse(responseCode = "400", content = @Content(schema = @Schema(implementation = Void.class)),
                             description = "Bad request. (Pagination can't be null/Wrong sorting direction value)"),
@@ -61,7 +64,7 @@ public class TaskController {
                             content = @Content(schema = @Schema(implementation = Void.class)))
             }
     )
-    public ResponseEntity<List<TaskViewDTO>> getAllTasks(
+    public ResponseEntity<PageResponse<TaskViewDTO>> getAllTasks(
             @Parameter(description = "Page number for pagination", example = "0", required = true)
             @RequestParam(value = "pageNumber")
             Integer pageNumber,
@@ -79,7 +82,14 @@ public class TaskController {
             String directionStr) {
         Page<Task> tasks = taskService.getAllTasks(pageNumber, pageSize, field, directionStr);
         List<TaskViewDTO> taskViewDTOs = tasks.stream().map(taskMapper::taskToTaskViewDTO).toList();
-        return new ResponseEntity<>(taskViewDTOs, HttpStatus.OK);
+        PageResponse<TaskViewDTO> pageResponse = new PageResponse<>(
+                taskViewDTOs,
+                tasks.getTotalElements(),
+                tasks.getSize(),
+                tasks.getNumber() + 1,
+                tasks.getTotalPages()
+        );
+        return new ResponseEntity<>(pageResponse, HttpStatus.OK);
     }
 
     /**
@@ -89,7 +99,7 @@ public class TaskController {
      * @param pageSize размер страницы для пагинации
      * @param field поле для сортировки
      * @param directionStr направление сортировки
-     * @return список задач
+     * @return список задач с метаинформацией об офсетах
      */
     @GetMapping("/myAuthored")
     @Operation(
@@ -104,7 +114,7 @@ public class TaskController {
                             content = @Content(schema = @Schema(implementation = Void.class)))
             }
     )
-    public ResponseEntity<List<TaskViewDTO>> getMyAuthoredTasks(
+    public ResponseEntity<PageResponse<TaskViewDTO>> getMyAuthoredTasks(
             @Parameter(description = "Page number for pagination", example = "0", required = true)
             @RequestParam(value = "pageNumber")
             Integer pageNumber,
@@ -122,7 +132,14 @@ public class TaskController {
             String directionStr) {
         Page<Task> tasks = taskService.getAuthoredTasks(pageNumber, pageSize, field, directionStr);
         List<TaskViewDTO> taskViewDTOs = tasks.stream().map(taskMapper::taskToTaskViewDTO).toList();
-        return new ResponseEntity<>(taskViewDTOs, HttpStatus.OK);
+        PageResponse<TaskViewDTO> pageResponse = new PageResponse<>(
+                taskViewDTOs,
+                tasks.getTotalElements(),
+                tasks.getSize(),
+                tasks.getNumber()+1,
+                tasks.getTotalPages()
+        );
+        return new ResponseEntity<>(pageResponse, HttpStatus.OK);
     }
 
     /**
@@ -132,7 +149,7 @@ public class TaskController {
      * @param pageSize размер страницы для пагинации
      * @param field поле для сортировки
      * @param directionStr направление сортировки
-     * @return список задач
+     * @return список задач с метаинформацией об офсетах
      */
     @GetMapping("/myAssigned")
     @Operation(
@@ -147,7 +164,7 @@ public class TaskController {
                             content = @Content(schema = @Schema(implementation = Void.class)))
             }
     )
-    public ResponseEntity<List<TaskViewDTO>> getMyAssignedTasks(
+    public ResponseEntity<PageResponse<TaskViewDTO>> getMyAssignedTasks(
             @Parameter(description = "Page number for pagination", example = "0", required = true)
             @RequestParam(value = "pageNumber")
             Integer pageNumber,
@@ -165,7 +182,14 @@ public class TaskController {
             String directionStr) {
         Page<Task> tasks = taskService.getAssignedTasks(pageNumber, pageSize, field, directionStr);
         List<TaskViewDTO> taskViewDTOs = tasks.stream().map(taskMapper::taskToTaskViewDTO).toList();
-        return new ResponseEntity<>(taskViewDTOs, HttpStatus.OK);
+        PageResponse<TaskViewDTO> pageResponse = new PageResponse<>(
+                taskViewDTOs,
+                tasks.getTotalElements(),
+                tasks.getSize(),
+                tasks.getNumber()+1,
+                tasks.getTotalPages()
+        );
+        return new ResponseEntity<>(pageResponse, HttpStatus.OK);
     }
 
     /**
@@ -176,7 +200,7 @@ public class TaskController {
      * @param pageSize размер страницы для пагинации
      * @param field поле для сортировки
      * @param directionStr направление сортировки
-     * @return список задач
+     * @return список задач с метаинформацией об офсетах
      */
     @GetMapping("/author/{authorId}")
     @Operation(
@@ -191,7 +215,7 @@ public class TaskController {
                             content = @Content(schema = @Schema(implementation = Void.class)))
             }
     )
-    public ResponseEntity<List<TaskViewDTO>> getAllTasksByAuthorId(
+    public ResponseEntity<PageResponse<TaskViewDTO>> getAllTasksByAuthorId(
             @Parameter(description = "Id of author whose tasks to get", example = "1", required = true)
             @PathVariable("authorId") Long authorId,
 
@@ -212,7 +236,14 @@ public class TaskController {
             String directionStr) {
         Page<Task> tasks = taskService.getAllTasksByAuthorId(authorId, pageNumber, pageSize, field, directionStr);
         List<TaskViewDTO> taskViewDTOs = tasks.stream().map(taskMapper::taskToTaskViewDTO).toList();
-        return new ResponseEntity<>(taskViewDTOs, HttpStatus.OK);
+        PageResponse<TaskViewDTO> pageResponse = new PageResponse<>(
+                taskViewDTOs,
+                tasks.getTotalElements(),
+                tasks.getSize(),
+                tasks.getNumber()+1,
+                tasks.getTotalPages()
+        );
+        return new ResponseEntity<>(pageResponse, HttpStatus.OK);
     }
 
 
@@ -224,14 +255,15 @@ public class TaskController {
      * @param pageSize размер страницы для пагинации
      * @param field поле для сортировки
      * @param directionStr направление сортировки
-     * @return список задач
+     * @return список задач с метаинформацией об офсетах
      */
     @GetMapping("/performer/{performerId}")
     @Operation(
             summary = "Get all tasks by performer id",
             description = "Retrieve a paginated/sorted list of all tasks by performer id",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Successful retrieval of task list",
+                    @ApiResponse(responseCode = "200", description = "Successful retrieval of task list" +
+                            " with metadata about offsets",
                             content = @Content(schema = @Schema(implementation = TaskViewDTO.class))),
                     @ApiResponse(responseCode = "400", content = @Content(schema = @Schema(implementation = Void.class)),
                             description = "Bad request. (Pagination can't be null/Wrong sorting direction value)"),
@@ -239,7 +271,7 @@ public class TaskController {
                             content = @Content(schema = @Schema(implementation = Void.class)))
             }
     )
-    public ResponseEntity<List<TaskViewDTO>> getAllTasksByPerformId(
+    public ResponseEntity<PageResponse<TaskViewDTO>> getAllTasksByPerformId(
             @Parameter(description = "Id of performer whose task to get", example = "1", required = true)
             @PathVariable("performerId") Long performerId,
 
@@ -260,7 +292,14 @@ public class TaskController {
             String directionStr) {
         Page<Task> tasks = taskService.getAllTasksByPerformerId(performerId, pageNumber, pageSize, field, directionStr);
         List<TaskViewDTO> taskViewDTOs = tasks.stream().map(taskMapper::taskToTaskViewDTO).toList();
-        return new ResponseEntity<>(taskViewDTOs, HttpStatus.OK);
+        PageResponse<TaskViewDTO> pageResponse = new PageResponse<>(
+                taskViewDTOs,
+                tasks.getTotalElements(),
+                tasks.getSize(),
+                tasks.getNumber()+1,
+                tasks.getTotalPages()
+        );
+        return new ResponseEntity<>(pageResponse, HttpStatus.OK);
     }
 
     /**

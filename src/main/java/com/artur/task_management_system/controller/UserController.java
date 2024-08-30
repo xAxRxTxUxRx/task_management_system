@@ -3,6 +3,7 @@ package com.artur.task_management_system.controller;
 import com.artur.task_management_system.dto.UserCreationDTO;
 import com.artur.task_management_system.dto.UserViewDTO;
 import com.artur.task_management_system.dto.mappers.UserMapper;
+import com.artur.task_management_system.model.PageResponse;
 import com.artur.task_management_system.model.User;
 import com.artur.task_management_system.service.UserService;
 import com.artur.task_management_system.service.UserConfirmationService;
@@ -44,14 +45,15 @@ public class UserController {
      * @param pageSize количество записей на странице для пагинации
      * @param field поле для сортировки результатов
      * @param directionStr направление сортировки (Asc/Desc)
-     * @return список пользователей в формате {@link UserViewDTO} с HTTP статусом 200 OK
+     * @return список пользователей типа {@link UserViewDTO} и метоинфорацию по офсетам с HTTP статусом 200 OK
      */
     @GetMapping
     @Operation(
             summary = "Get all users",
             description = "Retrieve a paginated/sorted list of all users",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Successful retrieval of user list",
+                    @ApiResponse(responseCode = "200", description = "Successful retrieval of user list" +
+                            " with metadata about offsets",
                             content = @Content(schema = @Schema(implementation = UserViewDTO.class))),
                     @ApiResponse(responseCode = "400", content = @Content(schema = @Schema(implementation = Void.class)),
                             description = "Bad request. (Pagination can't be null/Wrong sorting direction value)"),
@@ -59,7 +61,7 @@ public class UserController {
                             content = @Content(schema = @Schema(implementation = Void.class)))
             }
     )
-    public ResponseEntity<List<UserViewDTO>> getAllUsers(
+    public ResponseEntity<PageResponse<UserViewDTO>> getAllUsers(
             @Parameter(description = "Page number for pagination", required = true, example = "0")
             @RequestParam("pageNumber")
             Integer pageNumber,
@@ -77,7 +79,14 @@ public class UserController {
             String directionStr) {
         Page<User> users = userService.getAllUsers(pageNumber, pageSize, field, directionStr);
         List<UserViewDTO> userViewDTOs = users.stream().map(userMapper::userToUserViewDTO).toList();
-        return new ResponseEntity<>(userViewDTOs, HttpStatus.OK);
+        PageResponse<UserViewDTO> pageResponse = new PageResponse<>(
+                userViewDTOs,
+                users.getTotalElements(),
+                users.getSize(),
+                users.getNumber()+1,
+                users.getTotalPages()
+        );
+        return new ResponseEntity<>(pageResponse, HttpStatus.OK);
     }
 
     /**
